@@ -1,3 +1,13 @@
+<?php
+
+    $id_producto = $_GET["id"];
+    include "model/conn.php";
+    $sql_producto = $conn->query("select * from productos where id = $id_producto");
+    $item_producto = $sql_producto->fetch_object();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es-VE">
 <head>
@@ -5,12 +15,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="shortcut icon" href="assets/icons/destello.png" type="image/x-icon">
-    <title>Tienda de Electrónica</title>
+    <title><?= $item_producto->nombre_producto ?></title>
 </head>
 <header>
     <nav class="navbar navbar-expand-lg bg-white">
         <div class="navbar-nav ms-4 me-auto">
-            <a class="navbar-brand" href="#"><b>TIENDA</b></a>
+            <a class="navbar-brand" href="index.php"><b>TIENDA</b></a>
             <form class="d-flex" action="GET" type="search">
                 <input type="search" class="form-control me-2" name="results" placeholder="Buscar...">
                 <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -35,41 +45,19 @@
     </nav>
 </header>
 <body class="bg-dark">
-    <section id="intro">
-        <div class="container-fluid d-flex text-white text-center align-items-center justify-content-center" 
-        style="background-image: url(assets/images/pexels_fondo.JPG); height: 50vh; background-size: cover; background-position: center;">
-            <div>
-                <h1>Tienda de Electrónica</h1>
-                <p>Aquí podrás comprar todos los suplementos y artículos de electrónica de la más alta calidad.</p>
-            </div>
+    <div class="row my-5 align-items-center">
+        <div class="col-lg-4 offset-lg-1 col-10 offset-1">
+            <img class="img-fluid" src="<?= $item_producto->imagen_producto ?>" alt="Imagen sobre...">
         </div>
-    </section>
-    <section id="productos">
-        <div class="row mt-5">
-            <div class="col-8 offset-2 text-white"> 
-                <h3>Productos populares</h3>
-                <div style="grid-template-columns: 1fr 1fr 1fr 1fr;" class="d-grid gap-3 my-4">
-                    <?php
-                        include "model/conn.php";
-                        $sql = $conn->query("select * from productos limit 8");
-                        while ($item = $sql->fetch_object()){ ?>
-
-                            <div class="card" style="width: 18rem;">
-                                <img src="<?= $item->imagen_producto ?>" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">$<?= $item->precio_producto ?>usd</h5>
-                                    <p class="card-text"><?= $item->nombre_producto ?></p>
-                                    <a href="product_details.php?id=<?= $item->id ?>" class="btn btn-primary">Ver producto</a>
-                                </div>
-                            </div>
-
-                        <?php
-                        }
-                    ?>
-                </div>  
-            </div>
+        <div class="col-lg-5 offset-lg-1 col-10 offset-1 text-white">
+            <h1><?= $item_producto->nombre_producto ?></h1>
+            <h6>Publicado por <a href="#">X Empresa</a></h6>
+            <h3><b>$<?= $item_producto->precio_producto ?></b></h3>
+            <p><?= $item_producto->descripcion_producto ?></p>
+            <h6 class="text-success"><i class="fa-solid fa-truck-fast me-2"></i>Envío gratis en las próximas horas.</h6>
+            <button type="button" class="btn btn-warning mt-3 p-3">Agregar al carrito<i class="fa-solid fa-cart-shopping ms-2"></i></button>
         </div>
-    </section>
+    </div>
 </body>
 
 <?php
