@@ -1,0 +1,29 @@
+.btn{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.card-img-top{
+    width: 100%;
+    height: 17vw;
+    object-fit: cover;
+}
+
+.one-line{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+h1 {
+    font-family: "Kanit", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+h2, h3, h4, h5, h6, a, button {
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
